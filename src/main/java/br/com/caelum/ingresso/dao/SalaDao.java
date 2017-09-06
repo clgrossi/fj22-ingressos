@@ -26,7 +26,7 @@ public class SalaDao {
     }
 
     public List<Sala> findAll() {
-        return manager.createQuery("select s from Sala s", Sala.class).getResultList();
+        return manager.createQuery("select s from Sala s order by s.nome", Sala.class).getResultList();
     }
 
     public void delete(Integer id) {
