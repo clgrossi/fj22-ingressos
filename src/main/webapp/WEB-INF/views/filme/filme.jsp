@@ -19,6 +19,14 @@
                     <span class="text-danger">${error.defaultMessage}</span>
                 </c:forEach>
             </div>
+            
+            <div class="form-group">
+                <label for="nome_ingles">Nome Original:</label>
+                <input id="nome_ingles" type="text" name="nome_ingles" class="form-control" value="${filme.nome_ingles}">
+                <c:forEach items="${bindingResult.getFieldErrors('nome_ingles')}" var="error">
+                    <span class="text-danger">${error.defaultMessage}</span>
+                </c:forEach>
+            </div>
 
             <div class="form-group">
                 <label for="genero">Genero:</label>

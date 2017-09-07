@@ -10,6 +10,10 @@ import java.util.stream.Stream;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.caelum.ingresso.model.descontos.DescontoDeTrinta;
+import br.com.caelum.ingresso.model.descontos.DescontoEstudante;
+import br.com.caelum.ingresso.model.descontos.SemDesconto;
+
 public class GerenciadorSessaoTeste {
 
 	@Test
@@ -58,8 +62,8 @@ public class GerenciadorSessaoTeste {
 	@Test
 	public void precoSessao() {
 		LocalTime duasEMeia = LocalTime.of(14, 30);
-		BigDecimal precoFilme = new BigDecimal(2.35);
-		BigDecimal precoSala = new BigDecimal(1.50);
+		BigDecimal precoFilme = new BigDecimal("2.33");
+		BigDecimal precoSala = new BigDecimal("1.58");
 		Filme f1 = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", precoFilme);
 		Sala sala = new Sala("3D", precoSala);
 		
@@ -67,9 +71,46 @@ public class GerenciadorSessaoTeste {
 		
 		Sessao sessao = new Sessao(duasEMeia,f1,sala);
 		
-		System.out.print(soma+"|"+sessao.getPreco()+"|"+f1.getPreco()+"|"+sala.getPreco());
+		//System.out.print(soma+"|"+sessao.getPreco()+"|"+f1.getPreco()+"|"+sala.getPreco());
 		
 		Assert.assertEquals(soma, sessao.getPreco());
+	}
+
+	@Test
+	public void descontoBanco() {
+		Sala sala = new Sala("3D", new BigDecimal("6.00"));
+		Filme filme = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", new BigDecimal("4.00"));
+		Sessao sessao = new Sessao(LocalTime.now(),filme,sala);
+		Ingresso ingresso = new Ingresso(sessao,new DescontoDeTrinta());
+		
+		System.out.println("descontoBanco: "+ingresso.getPreco());
+
+		BigDecimal precoEsperado = new BigDecimal("7.000");
+		Assert.assertEquals(precoEsperado, ingresso.getPreco());
+	}
+	
+	@Test
+	public void descontoEstudante() {
+		Sala sala = new Sala("3D", new BigDecimal("6.00"));
+		Filme filme = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", new BigDecimal("4.00"));
+		Sessao sessao = new Sessao(LocalTime.now(),filme,sala);
+		Ingresso ingresso = new Ingresso(sessao,new DescontoEstudante());
+
+		BigDecimal precoEsperado = new BigDecimal("5.0");
+		Assert.assertEquals(precoEsperado, ingresso.getPreco());
+	}
+	
+	@Test
+	public void semDesconto() {
+		Sala sala = new Sala("3D", new BigDecimal("6.00"));
+		Filme filme = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", new BigDecimal("4.00"));
+		Sessao sessao = new Sessao(LocalTime.now(),filme,sala);
+		Ingresso ingresso = new Ingresso(sessao,new SemDesconto());
+
+		System.out.println("semDesconto: "+ingresso.getPreco());
+		
+		BigDecimal precoEsperado = new BigDecimal("10.00");
+		Assert.assertEquals(precoEsperado, ingresso.getPreco());
 	}
 	
 }

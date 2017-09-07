@@ -29,7 +29,7 @@ public class Sala {
     @NotBlank
     private String nome;
 
-    @NotBlank
+
     private BigDecimal preco;
     
     @OneToMany(fetch = FetchType.EAGER)
@@ -91,5 +91,9 @@ public class Sala {
     public BigDecimal getPreco() {
     	return this.preco;
     }
+    
+    public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
     
 }

@@ -17,6 +17,7 @@ public class Filme {
     @GeneratedValue
     private Integer id;
     private String nome;
+   	private String nome_ingles;
     private Duration duracao;
     private String genero;
     private BigDecimal preco;
@@ -72,4 +73,17 @@ public class Filme {
     public BigDecimal getPreco() {
     	return this.preco;
     }
+    
+    public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+    
+    public String getNome_ingles() {
+		return nome_ingles;
+	}
+
+	public void setNome_ingles(String nome_ingles) {
+		this.nome_ingles = nome_ingles;
+	}
+
 }
