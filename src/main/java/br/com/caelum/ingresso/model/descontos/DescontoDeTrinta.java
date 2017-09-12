@@ -15,6 +15,21 @@ public class DescontoDeTrinta implements Desconto {
 		BigDecimal x=precoOriginal.multiply(percentualDeDesconto);
 		return x;
 	}
+
+	@Override
+	public String getDescricao() {
+		return "Desconto Banco";
+	}
+
+	public BigDecimal getPercentualDeDesconto() {
+		return percentualDeDesconto;
+	}
+
+	public void setPercentualDeDesconto(BigDecimal percentualDeDesconto) {
+		this.percentualDeDesconto = percentualDeDesconto;
+	}
+	
+	
 	
 	
 	

@@ -5,14 +5,12 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import br.com.caelum.ingresso.model.descontos.DescontoDeTrinta;
-import br.com.caelum.ingresso.model.descontos.DescontoEstudante;
-import br.com.caelum.ingresso.model.descontos.SemDesconto;
 
 public class GerenciadorSessaoTeste {
 
@@ -81,7 +79,7 @@ public class GerenciadorSessaoTeste {
 		Sala sala = new Sala("3D", new BigDecimal("6.00"));
 		Filme filme = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", new BigDecimal("4.00"));
 		Sessao sessao = new Sessao(LocalTime.now(),filme,sala);
-		Ingresso ingresso = new Ingresso(sessao,new DescontoDeTrinta());
+		Ingresso ingresso = new Ingresso(sessao,TipoDeIngresso.BANCO, null);
 		
 		System.out.println("descontoBanco: "+ingresso.getPreco());
 
@@ -94,7 +92,7 @@ public class GerenciadorSessaoTeste {
 		Sala sala = new Sala("3D", new BigDecimal("6.00"));
 		Filme filme = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", new BigDecimal("4.00"));
 		Sessao sessao = new Sessao(LocalTime.now(),filme,sala);
-		Ingresso ingresso = new Ingresso(sessao,new DescontoEstudante());
+		Ingresso ingresso = new Ingresso(sessao,TipoDeIngresso.ESTUDANTE, null);
 
 		BigDecimal precoEsperado = new BigDecimal("5.0");
 		Assert.assertEquals(precoEsperado, ingresso.getPreco());
@@ -105,12 +103,33 @@ public class GerenciadorSessaoTeste {
 		Sala sala = new Sala("3D", new BigDecimal("6.00"));
 		Filme filme = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", new BigDecimal("4.00"));
 		Sessao sessao = new Sessao(LocalTime.now(),filme,sala);
-		Ingresso ingresso = new Ingresso(sessao,new SemDesconto());
+		Ingresso ingresso = new Ingresso(sessao,TipoDeIngresso.INTEIRO, null);
 
 		System.out.println("semDesconto: "+ingresso.getPreco());
 		
 		BigDecimal precoEsperado = new BigDecimal("10.00");
 		Assert.assertEquals(precoEsperado, ingresso.getPreco());
+	}
+	
+	@Test
+	public void garanteQueOLugarA1EstaOcupadoEOsLugaresA2EA3Disponiveis() {
+		Lugar a1 = new Lugar("A",1);
+		Lugar a2 = new Lugar("A",2);
+		Lugar a3 = new Lugar("A",3);
+		
+		Filme filme = new Filme("Harry Potter",Duration.ofMinutes(120),"Aventura", new BigDecimal("4.00"));
+		Sala sala = new Sala("3D", new BigDecimal("4.00"));
+		Sessao sessao = new Sessao(LocalTime.now(),filme,sala);
+		Ingresso ingresso = new Ingresso(sessao,TipoDeIngresso.INTEIRO, null);
+		Set<Ingresso> ingressos = Stream.of(ingresso).collect(Collectors.toSet());
+		
+		sessao.setIngressos(ingressos);
+		
+		Assert.assertFalse(sessao.isDisponivel(a1));
+		Assert.assertTrue(sessao.isDisponivel(a2));
+		Assert.assertTrue(sessao.isDisponivel(a3));
+		
+		
 	}
 	
 }

@@ -10,6 +10,19 @@ public class DescontoEstudante implements Desconto {
 	public BigDecimal aplicarDescontoSobre(BigDecimal precoOriginal) {
 		return precoOriginal.divide(metade);
 	}
+	
+	@Override
+	public String getDescricao() {
+		return "Desconto Estudante";
+	}
+
+	public BigDecimal getMetade() {
+		return metade;
+	}
+
+	public void setMetade(BigDecimal metade) {
+		this.metade = metade;
+	}
 
 	
 	
