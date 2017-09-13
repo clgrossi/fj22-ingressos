@@ -78,6 +78,9 @@ public class Sala {
 
     public Map<String, List<Lugar>> getMapaDeLugares() {
         if(!this.lugares.isEmpty()){
+        	for(Lugar l : lugares) {
+        		System.out.println(l.getFileira()+"|"+l.getPosicao());
+        	}
             return this.lugares.stream().collect(Collectors.groupingBy(Lugar::getFileira,Collectors.toList()));
         }
         return Collections.emptyMap();
