@@ -29,7 +29,11 @@ public class Sala {
     @NotBlank
     private String nome;
 
+<<<<<<< HEAD
 
+=======
+    @NotBlank
+>>>>>>> branch 'master' of https://github.com/clgrossi/fj22-ingressos
     private BigDecimal preco;
     
     @OneToMany(fetch = FetchType.EAGER)
@@ -95,8 +99,11 @@ public class Sala {
     	return this.preco;
     }
     
+<<<<<<< HEAD
     public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
     
+=======
+>>>>>>> branch 'master' of https://github.com/clgrossi/fj22-ingressos
 }

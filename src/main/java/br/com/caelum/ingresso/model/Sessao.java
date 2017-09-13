@@ -3,9 +3,12 @@ package br.com.caelum.ingresso.model;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+=======
+>>>>>>> branch 'master' of https://github.com/clgrossi/fj22-ingressos
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,9 +33,12 @@ public class Sessao {
 	
 	private BigDecimal preco;
 	
+<<<<<<< HEAD
 	@OneToMany(mappedBy="sessao", fetch=FetchType.EAGER)
 	private Set<Ingresso> ingressos;
 	
+=======
+>>>>>>> branch 'master' of https://github.com/clgrossi/fj22-ingressos
 	/**
 	 * @deprecated hibernate only
 	 */
@@ -86,6 +92,7 @@ public class Sessao {
 	public BigDecimal getPreco() {
 		return this.preco;
 	}
+<<<<<<< HEAD
 	
     public Map<String, List<Lugar>> getMapaDeLugares() {
     	return this.sala.getMapaDeLugares();
@@ -104,6 +111,8 @@ public class Sessao {
 	}
 	
 
+=======
+>>>>>>> branch 'master' of https://github.com/clgrossi/fj22-ingressos
 	
 
 }
